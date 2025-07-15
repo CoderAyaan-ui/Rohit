@@ -1,102 +1,331 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import { Trophy, Calendar, MapPin, Users, Star, TrendingUp, Award, Target } from 'lucide-react';
+
+interface CareerStat {
+  format: string;
+  matches: number;
+  runs: number;
+  average: number;
+  strikeRate: number;
+  hundreds: number;
+  fifties: number;
+}
+
+interface Achievement {
+  year: string;
+  title: string;
+  description: string;
+}
+
+export default function RohitSharmaWebsite() {
+  const [activeTab, setActiveTab] = useState('overview');
+
+  const careerStats: CareerStat[] = [
+    {
+      format: 'ODI',
+      matches: 262,
+      runs: 10866,
+      average: 48.96,
+      strikeRate: 90.99,
+      hundreds: 31,
+      fifties: 56
+    },
+    {
+      format: 'T20I',
+      matches: 159,
+      runs: 4231,
+      average: 31.32,
+      strikeRate: 140.89,
+      hundreds: 5,
+      fifties: 32
+    },
+    {
+      format: 'Test',
+      matches: 67,
+      runs: 4301,
+      average: 41.75,
+      strikeRate: 56.91,
+      hundreds: 11,
+      fifties: 16
+    }
+  ];
+
+  const achievements: Achievement[] = [
+    {
+      year: '2019',
+      title: 'World Cup Leading Run Scorer',
+      description: 'Scored 648 runs in 2019 Cricket World Cup, highest by any player'
+    },
+    {
+      year: '2019',
+      title: 'Most ODI Hundreds in a Calendar Year',
+      description: 'Scored 7 ODI hundreds in 2019, a world record'
+    },
+    {
+      year: '2013',
+      title: 'IPL Winner as Captain',
+      description: 'Led Mumbai Indians to their first IPL title'
+    },
+    {
+      year: '2014',
+      title: 'Highest Individual Score in ODI',
+      description: 'Scored 264 vs Sri Lanka, highest individual score in ODI cricket'
+    },
+    {
+      year: '2023',
+      title: 'World Cup Runner-up as Captain',
+      description: 'Led India to World Cup final, finishing as tournament leading run scorer'
+    }
+  ];
+
+  const milestones = [
+    { milestone: 'ODI Debut', date: 'June 23, 2007', opponent: 'Ireland' },
+    { milestone: 'Test Debut', date: 'November 6, 2013', opponent: 'West Indies' },
+    { milestone: 'T20I Debut', date: 'September 12, 2007', opponent: 'England' },
+    { milestone: 'First ODI Century', date: 'June 28, 2010', opponent: 'Zimbabwe' },
+    { milestone: 'Appointed ODI Captain', date: 'January 2017', opponent: 'England' },
+    { milestone: '10,000 ODI Runs', date: 'October 2023', opponent: 'Australia' }
+  ];
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="text-center">
+            <div className="w-48 h-48 mx-auto mb-8 rounded-full bg-gradient-to-br from-orange-400 to-red-600 p-2 hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full rounded-full overflow-hidden bg-white/10 backdrop-blur-sm">
+                <img 
+                  src="/images/rohit.gif" 
+                  alt="Rohit Sharma in action" 
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+              Rohit Sharma
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+              The Hitman • Captain • Legend
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <MapPin className="w-4 h-4" />
+                <span>Mumbai, India</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Calendar className="w-4 h-4" />
+                <span>Born: April 30, 1987</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Users className="w-4 h-4" />
+                <span>Right-handed Opener</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="bg-white/10 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex space-x-8 overflow-x-auto">
+            {[
+              { id: 'overview', label: 'Overview', icon: Star },
+              { id: 'stats', label: 'Career Stats', icon: TrendingUp },
+              { id: 'achievements', label: 'Achievements', icon: Trophy },
+              { id: 'milestones', label: 'Milestones', icon: Target }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center space-x-2 py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-orange-400 text-orange-400'
+                    : 'border-transparent text-blue-100 hover:text-white hover:border-white/30'
+                }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {activeTab === 'overview' && (
+          <div className="space-y-12">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                <h2 className="text-3xl font-bold mb-6 text-orange-400">The Hitman</h2>
+                <p className="text-blue-100 leading-relaxed mb-6">
+                  Rohit Sharma, fondly known as "The Hitman," is one of cricket's most elegant and destructive batsmen. 
+                  Known for his timing, placement, and ability to score big hundreds, Rohit has redefined modern batting 
+                  across all formats of the game.
+                </p>
+                <p className="text-blue-100 leading-relaxed">
+                  As India's ODI and T20I captain, Rohit has led from the front, combining aggressive batting with 
+                  astute leadership. His record-breaking performances and consistent excellence make him one of the 
+                  greatest limited-overs batsmen of all time.
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                <h2 className="text-3xl font-bold mb-6 text-orange-400">Quick Facts</h2>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-white/20">
+                    <span className="text-blue-100">Full Name</span>
+                    <span className="font-semibold">Rohit Gurunath Sharma</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/20">
+                    <span className="text-blue-100">Nickname</span>
+                    <span className="font-semibold">The Hitman</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/20">
+                    <span className="text-blue-100">Role</span>
+                    <span className="font-semibold">Opening Batsman</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/20">
+                    <span className="text-blue-100">Batting Style</span>
+                    <span className="font-semibold">Right-handed</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/20">
+                    <span className="text-blue-100">IPL Team</span>
+                    <span className="font-semibold">Mumbai Indians</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+              <h2 className="text-3xl font-bold mb-6 text-orange-400">Career Highlights</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-orange-400 mb-2">3</div>
+                  <div className="text-blue-100">ODI Double Centuries</div>
+                  <div className="text-sm text-blue-300 mt-1">Only player with 3 ODI 200s</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-orange-400 mb-2">5</div>
+                  <div className="text-blue-100">IPL Titles</div>
+                  <div className="text-sm text-blue-300 mt-1">As Mumbai Indians captain</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-orange-400 mb-2">47</div>
+                  <div className="text-blue-100">International Centuries</div>
+                  <div className="text-sm text-blue-300 mt-1">Across all formats</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'stats' && (
+          <div className="space-y-8">
+            <h2 className="text-4xl font-bold text-center mb-8 text-orange-400">Career Statistics</h2>
+            <div className="grid gap-6">
+              {careerStats.map((stat, index) => (
+                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-orange-400">{stat.format}</h3>
+                    <div className="text-sm text-blue-300">{stat.matches} Matches</div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.runs.toLocaleString()}</div>
+                      <div className="text-sm text-blue-300">Runs</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.average}</div>
+                      <div className="text-sm text-blue-300">Average</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.strikeRate}</div>
+                      <div className="text-sm text-blue-300">Strike Rate</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.hundreds}</div>
+                      <div className="text-sm text-blue-300">Hundreds</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.fifties}</div>
+                      <div className="text-sm text-blue-300">Fifties</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{stat.matches}</div>
+                      <div className="text-sm text-blue-300">Matches</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'achievements' && (
+          <div className="space-y-8">
+            <h2 className="text-4xl font-bold text-center mb-8 text-orange-400">Major Achievements</h2>
+            <div className="grid gap-6">
+              {achievements.map((achievement, index) => (
+                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-colors">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                        <Award className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <h3 className="text-xl font-bold text-white">{achievement.title}</h3>
+                        <span className="bg-orange-400/20 text-orange-400 px-2 py-1 rounded text-sm">{achievement.year}</span>
+                      </div>
+                      <p className="text-blue-100">{achievement.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'milestones' && (
+          <div className="space-y-8">
+            <h2 className="text-4xl font-bold text-center mb-8 text-orange-400">Career Milestones</h2>
+            <div className="space-y-4">
+              {milestones.map((milestone, index) => (
+                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">{index + 1}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">{milestone.milestone}</h3>
+                        <p className="text-blue-300">vs {milestone.opponent}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-orange-400 font-semibold">{milestone.date}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-black/20 border-t border-white/20 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-blue-100">
+            © 2024 Rohit Sharma Fan Website. Celebrating the journey of India's Hitman.
+          </p>
+        </div>
       </footer>
     </div>
   );
