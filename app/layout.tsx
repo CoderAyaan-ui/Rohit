@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Rohit Sharma - The Hitman | Official Fan Website',
   description: 'Explore the incredible journey of Rohit Sharma, India\'s cricket captain and one of the greatest batsmen of all time. Statistics, achievements, and career highlights.',
   keywords: 'Rohit Sharma, cricket, India captain, Mumbai Indians, IPL, hitman, ODI, T20I, Test cricket',
-  authors: [{ name: 'Rohit Sharma Fan Website' }],
+  authors: [{ name: 'Ayaan' }],
   openGraph: {
     title: 'Rohit Sharma - The Hitman',
     description: 'Celebrating the journey of India\'s cricket captain and legendary batsman',

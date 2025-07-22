@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Trophy, Calendar, MapPin, Users, Star, TrendingUp, Award, Target } from 'lucide-react';
+import { Trophy, Calendar, MapPin, Users, Star, TrendingUp, Award, Target, Brain } from 'lucide-react';
 
 interface CareerStat {
   format: string;
@@ -19,8 +19,17 @@ interface Achievement {
   description: string;
 }
 
+interface QuizQuestion {
+  question: string;
+  options: string[];
+  answer: string;
+}
+
 export default function RohitSharmaWebsite() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
 
   const careerStats: CareerStat[] = [
     {
@@ -89,6 +98,53 @@ export default function RohitSharmaWebsite() {
     { milestone: '10,000 ODI Runs', date: 'October 2023', opponent: 'Australia' }
   ];
 
+  const quizQuestions: QuizQuestion[] = [
+    {
+      question: 'What is Rohit Sharma\'s highest individual score in ODIs?',
+      options: ['200', '209', '264', '250'],
+      answer: '264',
+    },
+    {
+      question: 'In which year did Rohit score 5 centuries in a single World Cup?',
+      options: ['2011', '2015', '2019', '2023'],
+      answer: '2019',
+    },
+    {
+      question: 'Which IPL team does Rohit captain?',
+      options: ['CSK', 'RCB', 'MI', 'KKR'],
+      answer: 'MI',
+    },
+    {
+      question: 'How many ODI double centuries has Rohit Sharma scored?',
+      options: ['1', '2', '3', '4'],
+      answer: '3',
+    },
+    {
+      question: 'What is Rohit Sharma\'s nickname?',
+      options: ['Captain Cool', 'The Hitman', 'The Wall', 'Captain Courageous'],
+      answer: 'The Hitman',
+    }
+  ];
+
+  const handleAnswer = (option: string) => {
+    if (option === quizQuestions[currentQuestion].answer) {
+      setScore(score + 1);
+    }
+
+    const next = currentQuestion + 1;
+    if (next < quizQuestions.length) {
+      setCurrentQuestion(next);
+    } else {
+      setShowScore(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setScore(0);
+    setCurrentQuestion(0);
+    setShowScore(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
       {/* Hero Section */}
@@ -137,11 +193,17 @@ export default function RohitSharmaWebsite() {
               { id: 'overview', label: 'Overview', icon: Star },
               { id: 'stats', label: 'Career Stats', icon: TrendingUp },
               { id: 'achievements', label: 'Achievements', icon: Trophy },
-              { id: 'milestones', label: 'Milestones', icon: Target }
+              { id: 'milestones', label: 'Milestones', icon: Target },
+              { id: 'quiz', label: 'Quiz', icon: Brain }
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  if (tab.id === 'quiz') {
+                    resetQuiz();
+                  }
+                }}
                 className={`flex items-center space-x-2 py-4 px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? 'border-orange-400 text-orange-400'
@@ -317,13 +379,92 @@ export default function RohitSharmaWebsite() {
             </div>
           </div>
         )}
+
+        {activeTab === 'quiz' && (
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="max-w-2xl w-full bg-white/10 backdrop-blur-sm p-8 rounded-2xl shadow-lg text-center">
+              {showScore ? (
+                <>
+                  <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                    <Trophy className="w-10 h-10 text-white" />
+                  </div>
+                  <h2 className="text-4xl font-bold mb-6 text-orange-400">Quiz Complete!</h2>
+                  <div className="mb-8">
+                    <div className="text-6xl font-bold text-white mb-2">{score}</div>
+                    <div className="text-xl text-blue-200">out of {quizQuestions.length}</div>
+                  </div>
+                  <div className="mb-8">
+                    {score === quizQuestions.length ? (
+                      <p className="text-green-400 text-lg">🎉 Perfect Score! You're a true Rohit Sharma fan!</p>
+                    ) : score >= quizQuestions.length * 0.7 ? (
+                      <p className="text-yellow-400 text-lg">👏 Great job! You know your Hitman facts!</p>
+                    ) : (
+                      <p className="text-blue-300 text-lg">📚 Keep learning about the Hitman!</p>
+                    )}
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button
+                      onClick={resetQuiz}
+                      className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full transition font-semibold"
+                    >
+                      Take Quiz Again
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('overview')}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition font-semibold"
+                    >
+                      Back to Website
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                      <Brain className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm text-blue-300">Question</div>
+                      <div className="text-lg font-semibold text-orange-400">
+                        {currentQuestion + 1} of {quizQuestions.length}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mb-4 bg-gray-700/30 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-orange-400 to-red-500 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
+                    />
+                  </div>
+
+                  <h2 className="text-2xl font-semibold mb-8 text-white leading-relaxed">
+                    {quizQuestions[currentQuestion].question}
+                  </h2>
+                  
+                  <div className="space-y-4">
+                    {quizQuestions[currentQuestion].options.map((option, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleAnswer(option)}
+                        className="block w-full bg-white/10 hover:bg-orange-500 hover:scale-105 px-6 py-4 rounded-xl text-white font-medium transition-all duration-200 border border-white/20 hover:border-orange-400"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Footer */}
       <footer className="bg-black/20 border-t border-white/20 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-blue-100">
-            © 2024 Rohit Sharma Fan Website. Celebrating the journey of India's Hitman.
+           <marquee> © 2025 Rohit Sharma Fan Website. Made by Ayaan Mohan. (Rohit's biggest fan )</marquee>
           </p>
         </div>
       </footer>
